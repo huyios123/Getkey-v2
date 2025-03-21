@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Get Key - Hatsnow</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; background-color: #222; color: white; }
+        .box { margin-top: 50px; padding: 20px; background-color: #333; display: inline-block; border-radius: 10px; }
+        button { padding: 10px; margin-top: 10px; background-color: green; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Click to Get Key</h2>
+        <button onclick="generateKey()">Get Key</button>
+        <p id="key"></p>
+    </div>
+
+    <script>
+        function generateKey() {
+            let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            let key = "Free_";
+            for (let i = 0; i < 20; i++) {
+                key += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById("key").innerText = "Your Key: " + key;
+            navigator.clipboard.writeText(key);
+            localStorage.setItem("userKey", key);
+            localStorage.setItem("keyTime", new Date().getTime());
+            alert("Key copied to clipboard!");
+        }
+
+        function checkKeyExpiration() {
+            let savedKey = localStorage.getItem("userKey");
+            let savedTime = localStorage.getItem("keyTime");
+            let currentTime = new Date().getTime();
+            if (savedKey && savedTime && (currentTime - savedTime < 86400000)) {
+                document.getElementById("key").innerText = "Your Key: " + savedKey;
+            }
+        }
+        checkKeyExpiration();
+    </script>
+</body>
+</html>
