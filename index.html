@@ -17,10 +17,10 @@
 
     <script>
         function generateKey() {
-            let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            let key = "Free_";
-            for (let i = 0; i < 20; i++) {
-                key += chars.charAt(Math.floor(Math.random() * chars.length));
+            let digits = "123456789"; // Chỉ dùng số
+            let key = "";
+            for (let i = 0; i < 9; i++) {
+                key += digits.charAt(Math.floor(Math.random() * digits.length));
             }
             document.getElementById("key").innerText = "Your Key: " + key;
             navigator.clipboard.writeText(key);
